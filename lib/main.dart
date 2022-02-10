@@ -1,16 +1,18 @@
-// ignore_for_file: deprecated_member_use, prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'package:test_1/result.dart';
 
 import './quiz.dart';
 import './result.dart';
+// void main() {
+//   runApp(MyApp());
+// }
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
+    // TODO: implement createState
     return _MyAppState();
   }
 }
@@ -20,44 +22,53 @@ class _MyAppState extends State<MyApp> {
     {
       'questionText': 'What\'s your favorite color?',
       'answers': [
+        {'text': 'Black', 'score': 10},
         {'text': 'Red', 'score': 5},
-        {'text': 'Blue', 'score': 10},
-        {'text': 'Green', 'score': 8},
-        {'text': 'White', 'score': 6},
+        {'text': 'Green', 'score': 3},
+        {'text': 'White', 'score': 1},
       ],
     },
     {
       'questionText': 'What\'s your favorite animal?',
       'answers': [
-        {'text': 'Hamister', 'score': 8},
-        {'text': 'Dog', 'score': 10},
-        {'text': 'Lion', 'score': 9},
+        {'text': 'Dog', 'score': 3},
+        {'text': 'Snake', 'score': 11},
         {'text': 'Elephant', 'score': 5},
-        {'text': 'Cat', 'score': 1},
+        {'text': 'Lion', 'score': 9},
       ],
     },
     {
       'questionText': 'Who\'s your favorite actor?',
       'answers': [
-        {'text': 'Anthony Hopkins', 'score': 9},
-        {'text': 'Joaquin Phoenix', 'score': 5},
-        {'text': 'Rami Malek', 'score': 10},
-        {'text': 'Gary Oldman', 'score': 7},
-        {'text': 'Casey Affleck', 'score': 4},
+        {'text': 'Jack Nicholson', 'score': 1},
+        {'text': 'Robert De Niro', 'score': 1},
+        {'text': 'Anthony Hopkins', 'score': 1},
+        {'text': 'Denzel Washington', 'score': 1},
       ],
     },
   ];
   var _questionIndex = 0;
   var _totalScore = 0;
 
+  void _resetQuiz() {
+    setState(() {
+      _questionIndex = 0;
+      _totalScore = 0;
+    });
+  }
+
   void _answerQuestion(int score) {
+    // var aBool = true;
+    // aBool = false;
+
     _totalScore += score;
+
     setState(() {
       _questionIndex = _questionIndex + 1;
     });
     print(_questionIndex);
     if (_questionIndex < _questions.length) {
-      print('You are amazing!');
+      print('We have more questions!');
     } else {
       print('No more questions!');
     }
@@ -65,6 +76,12 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    // var dummy = const ['Hello'];
+    // dummy.add('Max');
+    // print(dummy);
+    // dummy = [];
+    // questions = []; // does not work if questions is a const
+
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
@@ -76,7 +93,7 @@ class _MyAppState extends State<MyApp> {
                 questionIndex: _questionIndex,
                 questions: _questions,
               )
-            : Result(_totalScore),
+            : Result(_totalScore, _resetQuiz),
       ),
     );
   }
